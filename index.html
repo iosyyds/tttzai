@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>甜仔专属 | 三角洲行动</title>
     <style>
         * {
@@ -11,9 +11,9 @@
             box-sizing: border-box;
         }
 
-        body {
-            width: 100vw;
-            height: 100vh;
+        html,body {
+            width: 100%;
+            height: 100%;
             background: #080c10;
             font-family: "微软雅黑", sans-serif;
             overflow: hidden;
@@ -53,10 +53,10 @@
 
         .out-border {
             position: absolute;
-            top: 30px;
-            left: 30px;
-            right: 30px;
-            bottom: 30px;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
             border: 1px solid rgba(0,160,125,0.25);
             z-index: 4;
         }
@@ -64,8 +64,8 @@
         .out-border::after {
             content: '';
             position: absolute;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border: 2px solid #00a07d;
         }
         .out-border::before {
@@ -84,8 +84,8 @@
         }
         .corner-bl, .corner-br {
             position: absolute;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border: 2px solid #00a07d;
             bottom: 0;
             animation: cornerFlow 4s linear infinite;
@@ -101,17 +101,17 @@
 
         .top-bar {
             position: absolute;
-            top: 40px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0,160,125,0.1);
-            padding: 6px 30px;
-            border-radius: 4px;
+            padding: 4px 20px;
             border: 1px solid rgba(0,160,125,0.2);
-            font-size: 14px;
+            font-size: 12px;
             color: #729486;
             letter-spacing: 2px;
             z-index: 5;
+            white-space: nowrap;
             animation: barPulse 3s ease-in-out infinite;
         }
         @keyframes barPulse {
@@ -119,20 +119,20 @@
             50% { box-shadow: 0 0 15px rgba(0,160,125,0.3); }
         }
 
-        /* 高级自然中间框 三角洲官方质感 */
+        /* 自适应中间框 ✅ 手机/电脑完美显示 */
         .main-console {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 580px;
-            padding: 50px 40px;
+            width: 90%;
+            max-width: 520px;
+            padding: 30px 20px;
             background: rgba(10,15,20,0.4);
             border: 1px solid rgba(0,160,125,0.25);
             border-radius: 8px;
             text-align: center;
             z-index: 6;
-            box-shadow: 0 0 40px rgba(0,160,125,0.1);
             animation: panelGlow 4s ease-in-out infinite alternate;
         }
         @keyframes panelGlow {
@@ -141,11 +141,11 @@
         }
 
         .title-name {
-            font-size: 42px;
-            letter-spacing: 10px;
+            font-size: clamp(26px, 6vw, 40px);
+            letter-spacing: 6px;
             color: #00b98f;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             animation: titleBreath 2.5s ease-in-out infinite alternate;
         }
         @keyframes titleBreath {
@@ -154,17 +154,17 @@
         }
 
         .date-show {
-            font-size: 16px;
+            font-size: clamp(12px, 3vw, 16px);
             color: #648275;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
         }
 
         .time-show {
-            font-size: 72px;
+            font-size: clamp(36px, 10vw, 68px);
             color: #00c99c;
             font-weight: bold;
-            letter-spacing: 6px;
+            letter-spacing: 3px;
             position: relative;
         }
         .time-show::after {
@@ -183,12 +183,18 @@
             100% { transform: translateY(-50%) scaleX(0.7); opacity: 0.2; }
         }
 
+        /* 移动端自动隐藏雷达 */
+        @media (max-width: 768px) {
+            .new-radar, .side-mark { display: none !important; }
+            .bottom-scroll { width: 80%; bottom: 50px; }
+        }
+
         .new-radar {
             position: absolute;
-            bottom: 90px;
-            left: 90px;
-            width: 130px;
-            height: 130px;
+            bottom: 70px;
+            left: 70px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             border: 1.5px solid rgba(0,160,125,0.4);
             background: radial-gradient(circle, rgba(0,160,125,0.12) 0%, transparent 70%);
@@ -209,11 +215,11 @@
 
         .side-mark {
             position: absolute;
-            right: 50px;
+            right: 40px;
             top: 50%;
             transform: translateY(-50%);
             writing-mode: vertical-rl;
-            font-size: 14px;
+            font-size: 12px;
             color: #5a776b;
             letter-spacing: 4px;
             z-index: 5;
@@ -221,16 +227,17 @@
 
         .bottom-scroll {
             position: absolute;
-            bottom: 55px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            width: 650px;
+            width: 90%;
+            max-width: 600px;
             overflow: hidden;
-            height: 24px;
+            height: 20px;
             z-index: 5;
         }
         .scroll-text {
-            font-size: 13px;
+            font-size: 11px;
             color: #00a07d;
             letter-spacing: 1px;
             white-space: nowrap;
@@ -243,15 +250,16 @@
 
         .footer-wx {
             position: absolute;
-            bottom: 32px;
+            bottom: 22px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 15px;
+            font-size: clamp(12px, 3vw, 14px);
             color: #4a6358;
             letter-spacing: 2px;
             z-index: 6;
             opacity: 0.8;
             animation: wxBreath 4s ease-in-out infinite;
+            white-space: nowrap;
         }
         @keyframes wxBreath {
             0%,100% { opacity: 0.7; }
@@ -260,10 +268,10 @@
 
         .light-point {
             position: absolute;
-            top: 42px;
-            right: 100px;
-            width: 10px;
-            height: 10px;
+            top: 32px;
+            right: 40px;
+            width: 8px;
+            height: 8px;
             background: #ff3b3b;
             border-radius: 50%;
             box-shadow: 0 0 12px #ff3b3b;
@@ -279,8 +287,10 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 400px;
-            height: 400px;
+            width: 60%;
+            max-width: 400px;
+            height: 60%;
+            max-height: 400px;
             transform: translate(-50%,-50%);
             border: 1px solid rgba(0,160,125,0.15);
             border-radius: 50%;
@@ -291,8 +301,10 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 500px;
-            height: 500px;
+            width: 80%;
+            max-width: 500px;
+            height: 80%;
+            max-height: 500px;
             transform: translate(-50%,-50%);
             border: 1px solid rgba(0,160,125,0.1);
             border-radius: 50%;
@@ -359,13 +371,13 @@
         upTime();
 
         const particleContainer = document.getElementById('particles');
-        const particleCount = 60;
+        const particleCount = 40;
         for(let i = 0; i < particleCount; i++){
             let p = document.createElement('div');
             p.style.cssText = `
                 position:absolute;
-                width:${Math.random()*3+1}px;
-                height:${Math.random()*3+1}px;
+                width:${Math.random()*2+1}px;
+                height:${Math.random()*2+1}px;
                 background:rgba(0,180,140,${Math.random()*0.4+0.1});
                 border-radius:50%;
                 left:${Math.random()*100}%;
@@ -381,7 +393,7 @@
         style.textContent = `
             @keyframes floatMove {
                 0% { transform: translateY(0) translateX(0); }
-                50% { transform: translateY(-80px) translateX(20px); }
+                50% { transform: translateY(-60px) translateX(15px); }
                 100% { transform: translateY(0) translateX(0); }
             }
         `;
