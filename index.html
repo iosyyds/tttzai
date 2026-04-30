@@ -11,62 +11,16 @@
             box-sizing: border-box;
         }
 
-        /* 加密锁屏层 */
-        .lock-wrap {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-        .lock-wrap h2 {
-            color: #7ed8a8;
-            margin-bottom: 30px;
-            letter-spacing: 4px;
-        }
-        .lock-wrap input {
-            padding: 12px 20px;
-            width: 260px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #7ed8a8;
-            border-radius: 8px;
-            color: #fff;
-            text-align: center;
-            font-size: 16px;
-            outline: none;
-        }
-        .lock-wrap button {
-            margin-top: 20px;
-            padding: 10px 30px;
-            background: #07bd63;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .main-page {
-            display: none;
-            width: 100vw;
-            height: 100vh;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
         body {
             width: 100vw;
             height: 100vh;
             background: linear-gradient(135deg, #071015 0%, #0f1f18 100%);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
 
         body::before {
@@ -144,7 +98,7 @@
             letter-spacing: 2px;
         }
 
-        /* 底部微信 整体居中 */
+        /* 底部微信居中 */
         .wx-footer {
             position: absolute;
             bottom: 8%;
@@ -171,46 +125,18 @@
     </style>
 </head>
 <body>
-    <!-- 加密锁屏 -->
-    <div class="lock-wrap" id="lockPage">
-        <h2>请输入访问密码</h2>
-        <input type="password" id="pwdInput" placeholder="输入密码">
-        <button onclick="checkPwd()">确认进入</button>
+    <div class="top-title">甜仔专属</div>
+    <div class="cctv-tip">三角洲行动</div>
+
+    <div class="glass-card">
+        <div class="title">北 京 时 间</div>
+        <div class="time" id="clock">00:00:00</div>
+        <div class="date" id="dateInfo">2026年04月30日 星期四</div>
     </div>
 
-    <!-- 主页面 全部整体居中 -->
-    <div class="main-page" id="mainPage">
-        <div class="top-title">甜仔专属</div>
-
-        <div class="glass-card">
-            <div class="title">北 京 时 间</div>
-            <div class="time" id="clock">00:00:00</div>
-            <div class="date" id="dateInfo">2026年04月30日 星期四</div>
-        </div>
-
-        <div class="wx-footer">微信：NBIOSS</div>
-    </div>
+    <div class="wx-footer">微信：NBIOSS</div>
 
     <script>
-        // 密码可自行修改
-        const passWord = "123456";
-
-        function checkPwd() {
-            let input = document.getElementById("pwdInput").value;
-            if(input === passWord){
-                document.getElementById("lockPage").style.display = "none";
-                document.getElementById("mainPage").style.display = "flex";
-            }else{
-                alert("密码错误，请重新输入");
-                document.getElementById("pwdInput").value = "";
-            }
-        }
-
-        // 回车快捷登录
-        document.getElementById("pwdInput").addEventListener("keydown",function(e){
-            if(e.key === "Enter") checkPwd();
-        });
-
         // 时间更新
         function updateTime() {
             const now = new Date();
