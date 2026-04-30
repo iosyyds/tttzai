@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>甜仔专属 | 三角洲行动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>甜仔专属</title>
     <style>
         * {
             margin: 0;
@@ -11,393 +11,221 @@
             box-sizing: border-box;
         }
 
-        html,body {
-            width: 100%;
-            height: 100%;
-            background: #080c10;
-            font-family: "微软雅黑", sans-serif;
+        body {
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
-            color: #a9b9b3;
+            background: #050709;
+            font-family: "Segoe UI", "微软雅黑", sans-serif;
+            color: #d6e0db;
             position: relative;
         }
 
-        #particles {
+        /* 全局网格背景 三角洲战术网格 */
+        .bg-grid {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(18, 38, 32, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 38, 32, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: 1;
-            pointer-events: none;
         }
 
-        .bg-grid-new {
+        /* 全屏扫描流光 */
+        .scan-line {
             position: absolute;
-            inset: 0;
-            background-image: linear-gradient(#101a16 1px, transparent 1px),
-                              linear-gradient(90deg, #101a16 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.3;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(0, 210, 160, 0.15),
+                transparent
+            );
+            animation: scanMove 4s linear infinite;
             z-index: 2;
         }
 
-        .scan-flow {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(transparent 47%, rgba(0,160,125,0.07) 50%, transparent);
-            background-size: 100% 8px;
-            animation: flowScan 8s linear infinite;
-            z-index: 3;
-        }
-        @keyframes flowScan {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 100%; }
+        @keyframes scanMove {
+            0% { top: -100%; }
+            100% { top: 100%; }
         }
 
-        .out-border {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 1px solid rgba(0,160,125,0.25);
-            z-index: 4;
-        }
-        .out-border::before,
-        .out-border::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border: 2px solid #00a07d;
-        }
-        .out-border::before {
-            top: 0;
-            left: 0;
-            border-right: none;
-            border-bottom: none;
-            animation: cornerFlow 4s linear infinite;
-        }
-        .out-border::after {
-            top: 0;
-            right: 0;
-            border-left: none;
-            border-bottom: none;
-            animation: cornerFlow 4s linear infinite;
-        }
-        .corner-bl, .corner-br {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border: 2px solid #00a07d;
-            bottom: 0;
-            animation: cornerFlow 4s linear infinite;
-        }
-        .corner-bl { left: 0; border-top: none; border-right: none; }
-        .corner-br { right: 0; border-top: none; border-left: none; }
-
-        @keyframes cornerFlow {
-            0% { box-shadow: 0 0 6px #00a07d; opacity: 0.6; }
-            50% { box-shadow: 0 0 20px #00a07d; opacity: 1; }
-            100% { box-shadow: 0 0 6px #00a07d; opacity: 0.6; }
-        }
-
-        .top-bar {
+        /* 四角战术边框 */
+        .corner-border {
             position: absolute;
             top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,160,125,0.1);
-            padding: 4px 20px;
-            border: 1px solid rgba(0,160,125,0.2);
-            font-size: 12px;
-            color: #729486;
-            letter-spacing: 2px;
-            z-index: 5;
-            white-space: nowrap;
-            animation: barPulse 3s ease-in-out infinite;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            border: 1px solid rgba(0, 210, 160, 0.2);
+            z-index: 3;
         }
-        @keyframes barPulse {
-            0%,100% { box-shadow: 0 0 5px rgba(0,160,125,0.15); }
-            50% { box-shadow: 0 0 15px rgba(0,160,125,0.3); }
+        .corner-border::before,
+        .corner-border::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-color: #00d2a0;
+            border-style: solid;
+            border-width: 2px 0 0 2px;
+            top: -1px;
+            left: -1px;
+        }
+        .corner-border::after {
+            border-width: 2px 2px 0 0;
+            left: auto;
+            right: -1px;
+        }
+        .corner-border .bot-l {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: solid #00d2a0;
+            border-width: 0 0 2px 2px;
+            bottom: -1px;
+            left: -1px;
+        }
+        .corner-border .bot-r {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: solid #00d2a0;
+            border-width: 0 2px 2px 0;
+            bottom: -1px;
+            right: -1px;
         }
 
-        /* 自适应中间框 ✅ 手机/电脑完美显示 */
-        .main-console {
+        /* 主容器 */
+        .main-box {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 520px;
-            padding: 30px 20px;
-            background: rgba(10,15,20,0.4);
-            border: 1px solid rgba(0,160,125,0.25);
-            border-radius: 8px;
+            background: rgba(8, 12, 15, 0.85);
+            border: 1px solid rgba(0, 210, 160, 0.3);
+            padding: 60px 100px;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            box-shadow: 0 0 30px rgba(0, 210, 160, 0.2), inset 0 0 40px rgba(0, 210, 160, 0.05);
             text-align: center;
-            z-index: 6;
-            animation: panelGlow 4s ease-in-out infinite alternate;
-        }
-        @keyframes panelGlow {
-            0% { box-shadow: 0 0 30px rgba(0,160,125,0.1); }
-            100% { box-shadow: 0 0 50px rgba(0,160,125,0.2); }
+            z-index: 4;
         }
 
-        .title-name {
-            font-size: clamp(26px, 6vw, 40px);
-            letter-spacing: 6px;
-            color: #00b98f;
-            font-weight: 600;
-            margin-bottom: 15px;
-            animation: titleBreath 2.5s ease-in-out infinite alternate;
-        }
-        @keyframes titleBreath {
-            0% { text-shadow: 0 0 12px #00b98f; }
-            100% { text-shadow: 0 0 25px #00b98f; }
+        /* 标题 甜仔专属 */
+        .title {
+            font-size: 42px;
+            letter-spacing: 8px;
+            color: #00d2a0;
+            font-weight: 700;
+            text-shadow: 0 0 12px rgba(0, 210, 160, 0.6);
+            margin-bottom: 35px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
 
-        .date-show {
-            font-size: clamp(12px, 3vw, 16px);
-            color: #648275;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 10px #00d2a0; }
+            to { text-shadow: 0 0 25px #00d2a0, 0 0 40px rgba(0, 210, 160, 0.5); }
         }
 
-        .time-show {
-            font-size: clamp(36px, 10vw, 68px);
-            color: #00c99c;
-            font-weight: bold;
-            letter-spacing: 3px;
-            position: relative;
-        }
-        .time-show::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 100%;
-            height: 2px;
-            background: rgba(0,200,155,0.25);
-            animation: glitchLine 3s linear infinite;
-        }
-        @keyframes glitchLine {
-            0% { transform: translateY(-50%) scaleX(0.7); opacity: 0.2; }
-            50% { transform: translateY(-50%) scaleX(1); opacity: 0.5; }
-            100% { transform: translateY(-50%) scaleX(0.7); opacity: 0.2; }
-        }
-
-        /* 移动端自动隐藏雷达 */
-        @media (max-width: 768px) {
-            .new-radar, .side-mark { display: none !important; }
-            .bottom-scroll { width: 80%; bottom: 50px; }
-        }
-
-        .new-radar {
-            position: absolute;
-            bottom: 70px;
-            left: 70px;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 1.5px solid rgba(0,160,125,0.4);
-            background: radial-gradient(circle, rgba(0,160,125,0.12) 0%, transparent 70%);
-            z-index: 5;
-        }
-        .new-radar::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, transparent 70%, rgba(0,180,140,0.6) 100%);
-            animation: radarRotate 3.5s linear infinite;
-        }
-        @keyframes radarRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .side-mark {
-            position: absolute;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            writing-mode: vertical-rl;
-            font-size: 12px;
-            color: #5a776b;
+        /* 北京时间 */
+        .time-box {
+            font-size: 72px;
             letter-spacing: 4px;
-            z-index: 5;
+            color: #22e5c8;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(34, 229, 200, 0.7);
+            margin: 20px 0;
         }
 
-        .bottom-scroll {
+        .date-box {
+            font-size: 20px;
+            color: #88a89c;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        /* 底部微信 */
+        .footer-txt {
             position: absolute;
             bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 600px;
-            overflow: hidden;
-            height: 20px;
+            font-size: 20px;
+            color: #7a998c;
+            letter-spacing: 4px;
+            text-shadow: 0 0 8px rgba(0, 210, 160, 0.2);
             z-index: 5;
         }
-        .scroll-text {
-            font-size: 11px;
-            color: #00a07d;
-            letter-spacing: 1px;
-            white-space: nowrap;
-            animation: scrollMove 16s linear infinite;
-        }
-        @keyframes scrollMove {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
 
-        .footer-wx {
+        /* 闪烁红点战术元素 */
+        .blink-dot {
             position: absolute;
-            bottom: 22px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: clamp(12px, 3vw, 14px);
-            color: #4a6358;
-            letter-spacing: 2px;
-            z-index: 6;
-            opacity: 0.8;
-            animation: wxBreath 4s ease-in-out infinite;
-            white-space: nowrap;
-        }
-        @keyframes wxBreath {
-            0%,100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        .light-point {
-            position: absolute;
-            top: 32px;
-            right: 40px;
+            top: 35px;
+            right: 50px;
             width: 8px;
             height: 8px;
-            background: #ff3b3b;
+            background: #ff3c3c;
             border-radius: 50%;
-            box-shadow: 0 0 12px #ff3b3b;
-            animation: pointBlink 1.2s infinite;
+            box-shadow: 0 0 10px #ff3c3c;
+            animation: blink 1.2s infinite;
             z-index: 5;
         }
-        @keyframes pointBlink {
-            0%,100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.2; transform: scale(0.8); }
-        }
-
-        .pulse-ripple {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 60%;
-            max-width: 400px;
-            height: 60%;
-            max-height: 400px;
-            transform: translate(-50%,-50%);
-            border: 1px solid rgba(0,160,125,0.15);
-            border-radius: 50%;
-            animation: pulseRipple 6s ease-out infinite;
-            z-index: 1;
-        }
-        .pulse-ripple2 {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 80%;
-            max-width: 500px;
-            height: 80%;
-            max-height: 500px;
-            transform: translate(-50%,-50%);
-            border: 1px solid rgba(0,160,125,0.1);
-            border-radius: 50%;
-            animation: pulseRipple2 8s ease-out infinite;
-            z-index: 1;
-        }
-        @keyframes pulseRipple {
-            0% { transform: translate(-50%,-50%) scale(0.7); opacity: 0.8; }
-            100% { transform: translate(-50%,-50%) scale(1.6); opacity: 0; }
-        }
-        @keyframes pulseRipple2 {
-            0% { transform: translate(-50%,-50%) scale(0.6); opacity: 0.6; }
-            100% { transform: translate(-50%,-50%) scale(1.8); opacity: 0; }
+        @keyframes blink {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0.2; }
         }
     </style>
 </head>
 <body>
-    <div id="particles"></div>
-    <div class="pulse-ripple"></div>
-    <div class="pulse-ripple2"></div>
+    <!-- 背景网格 -->
+    <div class="bg-grid"></div>
+    <!-- 扫描线 -->
+    <div class="scan-line"></div>
+    <!-- 四角战术边框 -->
+    <div class="corner-border">
+        <div class="bot-l"></div>
+        <div class="bot-r"></div>
+    </div>
+    <!-- 闪烁战术红点 -->
+    <div class="blink-dot"></div>
 
-    <div class="bg-grid-new"></div>
-    <div class="scan-flow"></div>
-
-    <div class="out-border">
-        <div class="corner-bl"></div>
-        <div class="corner-br"></div>
+    <!-- 主内容 -->
+    <div class="main-box">
+        <div class="title">甜仔专属</div>
+        <div class="date-box" id="dateStr"></div>
+        <div class="time-box" id="timeStr">00:00:00</div>
     </div>
 
-    <div class="top-bar">三角洲行动 · 战术时钟系统</div>
-    <div class="light-point"></div>
-    <div class="side-mark">TACTICAL TERMINAL</div>
-
-    <div class="main-console">
-        <div class="title-name">甜仔专属</div>
-        <div class="date-show" id="dateBox"></div>
-        <div class="time-show" id="timeBox">00:00:00</div>
-    </div>
-
-    <div class="new-radar"></div>
-
-    <div class="bottom-scroll">
-        <div class="scroll-text">战术链路已连通 ● 卫星时钟同步成功 ● 区域环境监测正常 ● 作战终端待机运行 ● 加密频道持续值守</div>
-    </div>
-
-    <div class="footer-wx">微信 NBIOSS</div>
+    <!-- 底部文字 -->
+    <div class="footer-txt">微信 NBIOSS</div>
 
     <script>
-        function upTime() {
-            const n = new Date();
-            let y = n.getFullYear();
-            let m = String(n.getMonth()+1).padStart(2,'0');
-            let d = String(n.getDate()).padStart(2,'0');
-            let week = ['周日','周一','周二','周三','周四','周五','周六'][n.getDay()];
+        // 更新北京时间 日期+时间
+        function updateClock() {
+            const now = new Date();
+            // 日期
+            const year = now.getFullYear();
+            const mon = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const weekArr = ['周日','周一','周二','周三','周四','周五','周六'];
+            const week = weekArr[now.getDay()];
+            document.getElementById('dateStr').innerText = `${year}-${mon}-${day} ${week}`;
 
-            let h = String(n.getHours()).padStart(2,'0');
-            let mi = String(n.getMinutes()).padStart(2,'0');
-            let s = String(n.getSeconds()).padStart(2,'0');
-
-            document.getElementById('dateBox').innerText = `${y}-${m}-${d} ${week}`;
-            document.getElementById('timeBox').innerText = `${h}:${mi}:${s}`;
+            // 时间
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('timeStr').innerText = `${h}:${m}:${s}`;
         }
-        setInterval(upTime,1000);
-        upTime();
-
-        const particleContainer = document.getElementById('particles');
-        const particleCount = 40;
-        for(let i = 0; i < particleCount; i++){
-            let p = document.createElement('div');
-            p.style.cssText = `
-                position:absolute;
-                width:${Math.random()*2+1}px;
-                height:${Math.random()*2+1}px;
-                background:rgba(0,180,140,${Math.random()*0.4+0.1});
-                border-radius:50%;
-                left:${Math.random()*100}%;
-                top:${Math.random()*100}%;
-                z-index:1;
-                pointer-events:none;
-                animation:floatMove ${Math.random()*10+8}s linear infinite;
-            `;
-            particleContainer.appendChild(p);
-        }
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes floatMove {
-                0% { transform: translateY(0) translateX(0); }
-                50% { transform: translateY(-60px) translateX(15px); }
-                100% { transform: translateY(0) translateX(0); }
-            }
-        `;
-        document.head.appendChild(style);
+        setInterval(updateClock, 1000);
+        updateClock();
     </script>
 </body>
 </html>
