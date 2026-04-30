@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>甜仔专属</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>甜仔专属 | 三角洲行动</title>
     <style>
         * {
             margin: 0;
@@ -11,221 +11,208 @@
             box-sizing: border-box;
         }
 
-        body {
-            width: 100vw;
-            height: 100vh;
+        html,body {
+            width: 100%;
+            height: 100%;
+            background: #080c10;
+            font-family: sans-serif;
             overflow: hidden;
-            background: #050709;
-            font-family: "Segoe UI", "微软雅黑", sans-serif;
-            color: #d6e0db;
+            color: #a9b9b3;
             position: relative;
         }
 
-        /* 全局网格背景 三角洲战术网格 */
-        .bg-grid {
+        /* 粒子背景 */
+        #particles {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(18, 38, 32, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(18, 38, 32, 0.3) 1px, transparent 1px);
-            background-size: 40px 40px;
+            inset: 0;
             z-index: 1;
+            pointer-events: none;
         }
-
-        /* 全屏扫描流光 */
-        .scan-line {
+        .bg-grid-new {
             position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to bottom,
-                transparent,
-                rgba(0, 210, 160, 0.15),
-                transparent
-            );
-            animation: scanMove 4s linear infinite;
+            inset: 0;
+            background-image: linear-gradient(#101a16 1px, transparent 1px),
+                              linear-gradient(90deg, #101a16 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
             z-index: 2;
         }
-
-        @keyframes scanMove {
-            0% { top: -100%; }
-            100% { top: 100%; }
-        }
-
-        /* 四角战术边框 */
-        .corner-border {
+        .scan-flow {
             position: absolute;
-            top: 30px;
-            left: 30px;
-            right: 30px;
-            bottom: 30px;
-            border: 1px solid rgba(0, 210, 160, 0.2);
+            inset: 0;
+            background: linear-gradient(transparent 47%, rgba(0,160,125,0.07) 50%, transparent);
+            background-size: 100% 8px;
+            animation: flowScan 8s linear infinite;
             z-index: 3;
         }
-        .corner-border::before,
-        .corner-border::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-color: #00d2a0;
-            border-style: solid;
-            border-width: 2px 0 0 2px;
-            top: -1px;
-            left: -1px;
-        }
-        .corner-border::after {
-            border-width: 2px 2px 0 0;
-            left: auto;
-            right: -1px;
-        }
-        .corner-border .bot-l {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: solid #00d2a0;
-            border-width: 0 0 2px 2px;
-            bottom: -1px;
-            left: -1px;
-        }
-        .corner-border .bot-r {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: solid #00d2a0;
-            border-width: 0 2px 2px 0;
-            bottom: -1px;
-            right: -1px;
+        @keyframes flowScan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
         }
 
-        /* 主容器 */
-        .main-box {
+        /* 外框 */
+        .out-border {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid rgba(0,160,125,0.2);
+            z-index: 4;
+        }
+
+        /* 手机端自动隐藏多余元素 */
+        @media (max-width: 768px) {
+            .top-bar, .light-point, .side-mark, .new-radar, .pulse-ripple, .pulse-ripple2, .corner-bl, .corner-br {
+                display: none !important;
+            }
+            .out-border::before, .out-border::after {
+                display: none !important;
+            }
+        }
+
+        /* 核心中央框 —— 手机电脑都完美 */
+        .main-console {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(8, 12, 15, 0.85);
-            border: 1px solid rgba(0, 210, 160, 0.3);
-            padding: 60px 100px;
-            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
-            box-shadow: 0 0 30px rgba(0, 210, 160, 0.2), inset 0 0 40px rgba(0, 210, 160, 0.05);
+            width: 88%;
+            max-width: 460px;
+            padding: 35px 20px;
+            background: rgba(10,15,20,0.5);
+            border: 1px solid rgba(0,160,125,0.3);
+            border-radius: 14px;
             text-align: center;
-            z-index: 4;
+            z-index: 6;
+            animation: panelGlow 4s infinite alternate;
+        }
+        @keyframes panelGlow {
+            0% { box-shadow: 0 0 20px rgba(0,160,125,0.1); }
+            100% { box-shadow: 0 0 40px rgba(0,160,125,0.15); }
         }
 
-        /* 标题 甜仔专属 */
-        .title {
-            font-size: 42px;
-            letter-spacing: 8px;
-            color: #00d2a0;
-            font-weight: 700;
-            text-shadow: 0 0 12px rgba(0, 210, 160, 0.6);
-            margin-bottom: 35px;
-            animation: titleGlow 2s ease-in-out infinite alternate;
+        .title-name {
+            font-size: clamp(26px, 7vw, 38px);
+            letter-spacing: 6px;
+            color: #00b98f;
+            font-weight: 600;
+            margin-bottom: 18px;
+            animation: titleBreath 2.5s infinite alternate;
+        }
+        @keyframes titleBreath {
+            0% { text-shadow: 0 0 10px #00b98f; }
+            100% { text-shadow: 0 0 22px #00b98f; }
         }
 
-        @keyframes titleGlow {
-            from { text-shadow: 0 0 10px #00d2a0; }
-            to { text-shadow: 0 0 25px #00d2a0, 0 0 40px rgba(0, 210, 160, 0.5); }
+        .date-show {
+            font-size: clamp(13px, 3.5vw, 16px);
+            color: #648275;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
         }
 
-        /* 北京时间 */
-        .time-box {
-            font-size: 72px;
-            letter-spacing: 4px;
-            color: #22e5c8;
+        .time-show {
+            font-size: clamp(40px, 13vw, 64px);
+            color: #00c99c;
             font-weight: bold;
-            text-shadow: 0 0 20px rgba(34, 229, 200, 0.7);
-            margin: 20px 0;
+            letter-spacing: 2px;
         }
 
-        .date-box {
-            font-size: 20px;
-            color: #88a89c;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-        }
-
-        /* 底部微信 */
-        .footer-txt {
+        /* 底部滚动条 */
+        .bottom-scroll {
             position: absolute;
             bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 20px;
-            color: #7a998c;
-            letter-spacing: 4px;
-            text-shadow: 0 0 8px rgba(0, 210, 160, 0.2);
+            width: 85%;
+            height: 20px;
+            overflow: hidden;
             z-index: 5;
+        }
+        .scroll-text {
+            font-size: 11px;
+            color: #00a07d;
+            white-space: nowrap;
+            animation: scrollMove 18s linear infinite;
+        }
+        @keyframes scrollMove {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
-        /* 闪烁红点战术元素 */
-        .blink-dot {
+        /* 底部微信 */
+        .footer-wx {
             position: absolute;
-            top: 35px;
-            right: 50px;
-            width: 8px;
-            height: 8px;
-            background: #ff3c3c;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ff3c3c;
-            animation: blink 1.2s infinite;
-            z-index: 5;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(12px, 3.5vw, 14px);
+            color: #5a776b;
+            z-index: 6;
+            opacity: 0.8;
+            white-space: nowrap;
         }
-        @keyframes blink {
-            0%,100% { opacity: 1; }
-            50% { opacity: 0.2; }
-        }
+
     </style>
 </head>
 <body>
-    <!-- 背景网格 -->
-    <div class="bg-grid"></div>
-    <!-- 扫描线 -->
-    <div class="scan-line"></div>
-    <!-- 四角战术边框 -->
-    <div class="corner-border">
-        <div class="bot-l"></div>
-        <div class="bot-r"></div>
-    </div>
-    <!-- 闪烁战术红点 -->
-    <div class="blink-dot"></div>
-
-    <!-- 主内容 -->
-    <div class="main-box">
-        <div class="title">甜仔专属</div>
-        <div class="date-box" id="dateStr"></div>
-        <div class="time-box" id="timeStr">00:00:00</div>
+    <div id="particles"></div>
+    <div class="bg-grid-new"></div>
+    <div class="scan-flow"></div>
+    <div class="out-border">
+        <div class="corner-bl"></div>
+        <div class="corner-br"></div>
     </div>
 
-    <!-- 底部文字 -->
-    <div class="footer-txt">微信 NBIOSS</div>
+    <div class="main-console">
+        <div class="title-name">甜仔专属</div>
+        <div class="date-show" id="dateBox"></div>
+        <div class="time-show" id="timeBox">00:00:00</div>
+    </div>
+
+    <div class="bottom-scroll">
+        <div class="scroll-text">战术链路已连通 ● 卫星时钟同步成功 ● 区域环境监测正常 ● 作战终端待机运行</div>
+    </div>
+
+    <div class="footer-wx">微信 NBIOSS</div>
 
     <script>
-        // 更新北京时间 日期+时间
-        function updateClock() {
-            const now = new Date();
-            // 日期
-            const year = now.getFullYear();
-            const mon = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const weekArr = ['周日','周一','周二','周三','周四','周五','周六'];
-            const week = weekArr[now.getDay()];
-            document.getElementById('dateStr').innerText = `${year}-${mon}-${day} ${week}`;
-
-            // 时间
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('timeStr').innerText = `${h}:${m}:${s}`;
+        // 时间同步
+        function upTime() {
+            const n = new Date();
+            let y = n.getFullYear();
+            let m = String(n.getMonth()+1).padStart(2,'0');
+            let d = String(n.getDate()).padStart(2,'0');
+            let week = ['周日','周一','周二','周三','周四','周五','周六'][n.getDay()];
+            let h = String(n.getHours()).padStart(2,'0');
+            let mi = String(n.getMinutes()).padStart(2,'0');
+            let s = String(n.getSeconds()).padStart(2,'0');
+            document.getElementById('dateBox').innerText = `${y}-${m}-${d} ${week}`;
+            document.getElementById('timeBox').innerText = `${h}:${mi}:${s}`;
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+        setInterval(upTime,1000);
+        upTime();
+
+        // 粒子效果
+        const p = document.getElementById('particles');
+        for(let i=0;i<30;i++){
+            let d = document.createElement('div');
+            d.style.cssText = `
+                position:absolute;
+                width:${Math.random()*2+1}px;
+                height:${Math.random()*2+1}px;
+                background:rgba(0,180,140,${Math.random()*0.3+0.1});
+                border-radius:50%;
+                left:${Math.random()*100}%;
+                top:${Math.random()*100}%;
+                animation:float ${Math.random()*10+6}s infinite;
+            `;
+            p.appendChild(d);
+        }
+        const style = document.createElement('style');
+        style.textContent = '@keyframes float{0%{transform:translate(0,0)}50%{transform:translate(0,-40px)}100%{transform:translate(0,0)}}';
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
