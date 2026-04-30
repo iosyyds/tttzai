@@ -41,7 +41,7 @@
         .scan-flow {
             position: absolute;
             inset: 0;
-            background: linear-gradient(transparent 47%, rgba(0,160,125,0.07) 53%, transparent);
+            background: linear-gradient(transparent 47%, rgba(0,160,125,0.07) 50%, transparent);
             background-size: 100% 8px;
             animation: flowScan 8s linear infinite;
             z-index: 3;
@@ -119,57 +119,53 @@
             50% { box-shadow: 0 0 15px rgba(0,160,125,0.3); }
         }
 
+        /* 高级自然中间框 三角洲官方质感 */
         .main-console {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 600px;
-            padding: 60px 40px;
-            background: linear-gradient(135deg, rgba(6,12,17,0.9), rgba(9,15,20,0.7));
-            border: 1px solid rgba(0,160,125,0.3);
-            clip-path: polygon(30px 0, 100% 0, 100% 30px, calc(100% - 30px) 100%, 0 100%, 0 calc(100% - 30px));
-            box-shadow: 0 0 50px rgba(0,160,125,0.15);
+            width: 580px;
+            padding: 50px 40px;
+            background: rgba(10,15,20,0.4);
+            border: 1px solid rgba(0,160,125,0.25);
+            border-radius: 8px;
             text-align: center;
             z-index: 6;
-            animation: panelGlow 5s ease-in-out infinite alternate;
+            box-shadow: 0 0 40px rgba(0,160,125,0.1);
+            animation: panelGlow 4s ease-in-out infinite alternate;
         }
         @keyframes panelGlow {
             0% { box-shadow: 0 0 30px rgba(0,160,125,0.1); }
-            100% { box-shadow: 0 0 60px rgba(0,160,125,0.25); }
+            100% { box-shadow: 0 0 50px rgba(0,160,125,0.2); }
         }
 
         .title-name {
-            font-size: 44px;
-            letter-spacing: 12px;
+            font-size: 42px;
+            letter-spacing: 10px;
             color: #00b98f;
             font-weight: 600;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             animation: titleBreath 2.5s ease-in-out infinite alternate;
         }
         @keyframes titleBreath {
             0% { text-shadow: 0 0 12px #00b98f; }
-            100% { text-shadow: 0 0 25px #00b98f, 0 0 40px rgba(0,160,125,0.5); }
+            100% { text-shadow: 0 0 25px #00b98f; }
         }
 
         .date-show {
-            font-size: 17px;
+            font-size: 16px;
             color: #648275;
             letter-spacing: 3px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .time-show {
-            font-size: 76px;
+            font-size: 72px;
             color: #00c99c;
             font-weight: bold;
             letter-spacing: 6px;
             position: relative;
-            animation: timeGlitch 4s infinite;
-        }
-        @keyframes timeGlitch {
-            0%, 100% { opacity: 1; }
-            99% { opacity: 0.95; text-shadow: 0 0 15px #00c99c; }
         }
         .time-show::after {
             content: '';
@@ -206,25 +202,9 @@
             background: conic-gradient(from 0deg, transparent 70%, rgba(0,180,140,0.6) 100%);
             animation: radarRotate 3.5s linear infinite;
         }
-        .new-radar::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,180,140,0.3) 1px, transparent 1px);
-            background-size: 10% 10%;
-            animation: radarDot 6s linear infinite;
-            z-index: -1;
-        }
         @keyframes radarRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-        @keyframes radarDot {
-            0% { transform: scale(0.95); opacity: 0.5; }
-            50% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.5; }
         }
 
         .side-mark {
