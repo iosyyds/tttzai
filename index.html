@@ -1,148 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>甜仔专属 | 北京时间</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #0a0c0e;
-            font-family: "Poppins", "微软雅黑", sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            letter-spacing: 2px;
-            padding: 20px;
-        }
-        .tactical-box {
-            border: 2px solid #00e08c;
-            padding: 40px 30px;
-            position: relative;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 600px;
-        }
-        .tactical-box::before, .tactical-box::after {
-            content: "";
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #00e08c;
-        }
-        .tactical-box::before {
-            top: -2px;
-            left: -2px;
-            border-right: none;
-            border-bottom: none;
-        }
-        .tactical-box::after {
-            bottom: -2px;
-            right: -2px;
-            border-left: none;
-            border-top: none;
-        }
-        .title {
-            font-size: clamp(22px,5vw,28px);
-            color: #00e08c;
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-        .time-text {
-            font-size: clamp(32px,10vw,52px);
-            text-align: center;
-            line-height: 1.3;
-            font-weight: 600;
-        }
-        .date-text {
-            font-size: clamp(16px,3vw,20px);
-            margin-top: 12px;
-            opacity: 0.75;
-            text-align: center;
-        }
-        /* 底部微信复制区域 */
-        .wechat-wrap {
-            margin-top: 30px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .wechat-info {
-            font-size: clamp(14px,2.5vw,18px);
-            color: #00e08c;
-            opacity: 0.8;
-        }
-        .copy-btn {
-            padding: 4px 12px;
-            border: 1px solid #00e08c;
-            color: #00e08c;
-            background: transparent;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: clamp(12px,2vw,16px);
-            transition: 0.2s;
-        }
-        .copy-btn:hover {
-            background: #00e08c;
-            color: #0a0c0e;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>甜仔专属 | 三角洲时钟</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    background:#0a0c0e;
+    font-family:"Poppins","微软雅黑",sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    letter-spacing:2px;
+    padding:20px
+}
+/* 圆角矩形，无多余装饰 */
+.main-box{
+    border:2px solid #00e08c;
+    border-radius:10px;
+    padding:40px 30px;
+    width:100%;
+    max-width:600px
+}
+.title{
+    font-size:clamp(22px,5vw,28px);
+    color:#00e08c;
+    text-align:center;
+    margin-bottom:25px;
+    font-weight:700
+}
+.time-text{
+    font-size:clamp(32px,10vw,52px);
+    text-align:center;
+    font-weight:600
+}
+.date-text{
+    font-size:clamp(16px,3vw,20px);
+    margin-top:12px;
+    opacity:0.75;
+    text-align:center
+}
+.wechat-area{
+    margin-top:30px;
+    display:flex;
+    gap:12px;
+    align-items:center
+}
+.wx-text{
+    font-size:clamp(14px,2.5vw,18px);
+    color:#00e08c;
+    opacity:0.8
+}
+.copy-btn{
+    border:1px solid #00e08c;
+    background:transparent;
+    color:#00e08c;
+    padding:4px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:clamp(12px,2vw,16px);
+    transition:.2s
+}
+.copy-btn:hover{
+    background:#00e08c;
+    color:#0a0c0e
+}
+</style>
 </head>
 <body>
-    <div class="tactical-box">
-        <div class="title">甜仔专属 · 三角洲行动</div>
-        <div class="time-text" id="clock"></div>
-        <div class="date-text" id="dateInfo"></div>
-    </div>
+<div class="main-box">
+    <div class="title">甜仔专属 · 三角洲行动</div>
+    <div class="time-text" id="clock"></div>
+    <div class="date-text" id="dateInfo"></div>
+</div>
 
-    <div class="wechat-wrap">
-        <div class="wechat-info">微信：NBIOSS</div>
-        <button class="copy-btn" id="copyBtn">复制微信号</button>
-    </div>
+<div class="wechat-area">
+    <div class="wx-text">微信：NBIOSS</div>
+    <button class="copy-btn" id="copyBtn">复制微信号</button>
+</div>
 
-    <script>
-        // 时间更新
-        function updateTime() {
-            const weekArr = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
-            const now = new Date();
-            const pad = n => String(n).padStart(2, '0');
-            const year = now.getFullYear();
-            const month = pad(now.getMonth() + 1);
-            const day = pad(now.getDate());
-            const week = weekArr[now.getDay()];
-            const h = pad(now.getHours());
-            const m = pad(now.getMinutes());
-            const s = pad(now.getSeconds());
-            document.getElementById('clock').innerText = `${h}:${m}:${s}`;
-            document.getElementById('dateInfo').innerText = `${year}-${month}-${day} ${week}`;
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
+<script>
+function updateTime(){
+    const week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+    const now = new Date();
+    const fill = n=>String(n).padStart(2,'0');
+    let y = now.getFullYear();
+    let m = fill(now.getMonth()+1);
+    let d = fill(now.getDate());
+    let w = week[now.getDay()];
+    let h = fill(now.getHours());
+    let mi = fill(now.getMinutes());
+    let s = fill(now.getSeconds());
+    document.getElementById('clock').innerText = `${h}:${mi}:${s}`;
+    document.getElementById('dateInfo').innerText = `${y}-${m}-${d} ${w}`;
+}
+updateTime();
+setInterval(updateTime,1000);
 
-        // 复制微信号功能
-        const copyBtn = document.getElementById('copyBtn');
-        const wxText = "NBIOSS";
-        copyBtn.addEventListener('click', async () => {
-            try {
-                await navigator.clipboard.writeText(wxText);
-                const oldText = copyBtn.innerText;
-                copyBtn.innerText = "已复制 ✓";
-                setTimeout(() => copyBtn.innerText = oldText, 2000);
-            } catch (err) {
-                copyBtn.innerText = "复制失败";
-                setTimeout(() => copyBtn.innerText = "复制微信号", 2000);
-            }
-        })
-    </script>
+const copyBtn = document.getElementById('copyBtn');
+copyBtn.onclick = async()=>{
+    try{
+        await navigator.clipboard.writeText("NBIOSS");
+        let old = copyBtn.innerText;
+        copyBtn.innerText = "已复制 ✓";
+        setTimeout(()=>copyBtn.innerText=old,2000)
+    }catch{
+        copyBtn.innerText = "复制失败";
+        setTimeout(()=>copyBtn.innerText="复制微信号",2000)
+    }
+}
+</script>
 </body>
 </html>
